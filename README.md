@@ -4,7 +4,7 @@ Servicio de autenticación para la arquitectura mínima de microservicios solici
 
 ### Stack
 
-- **Backend**: Laravel (requiere PHP 8.2+). En este repo se usa **Laravel 11**.
+- **Backend**: Laravel (requiere PHP 8.4+). En este repo se usa **Laravel 11**.
 - **Auth**: JWT con `php-open-source-saver/jwt-auth`.
 - **Persistencia**: Migraciones + Eloquent (tabla `users`).
 
@@ -104,7 +104,7 @@ Este servicio requiere las variables típicas de Laravel (ver `.env.example`) y 
 
 ### Pasos de ejecución (local)
 
-Requisitos: **PHP 8.2+**, Composer.
+Requisitos: **PHP 8.4+**, Composer.
 
 1) Instalar dependencias:
 
