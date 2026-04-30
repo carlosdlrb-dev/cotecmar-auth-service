@@ -163,6 +163,44 @@ Esto creará las tablas y el usuario de prueba:
 php artisan serve
 ```
 
+### Ejecución con Docker
+
+Requisito: **Docker Desktop**.
+
+#### Levantar los contenedores
+
+```bash
+docker compose up -d --build
+```
+
+Esto levanta dos servicios:
+
+| Servicio | Descripción | Puerto |
+|---|---|---|
+| `auth-service` | Aplicación Laravel + Apache | `8000` |
+| `auth-mysql` | Base de datos MySQL 8 | `3307` (host) |
+
+Al iniciar, el contenedor ejecuta automáticamente `php artisan migrate --seed` y crea el usuario de demo.
+
+#### Comandos útiles
+
+```bash
+# Ver logs en tiempo real
+docker logs -f auth-service
+
+# Acceder al contenedor
+docker exec -it auth-service bash
+
+# Correr migraciones manualmente
+docker exec auth-service php artisan migrate
+
+# Detener los contenedores
+docker compose down
+
+# Detener y eliminar volúmenes (borra la base de datos)
+docker compose down -v
+```
+
 ### Decisiones técnicas
 
 - **JWT como mecanismo de autenticación**: se usa `auth:api` con driver `jwt` para cumplir el requerimiento de API protegida por token entre microservicios.
