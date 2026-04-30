@@ -95,7 +95,7 @@ Este servicio requiere las variables típicas de Laravel (ver `.env.example`) y 
 - **Laravel**
   - `APP_KEY`: se genera con `php artisan key:generate`
   - `APP_URL`: URL base del servicio (ej. `http://localhost:8000`)
-  - `DB_CONNECTION`: por defecto en `.env.example` es `sqlite` (ver sección de ejecución)
+  - `DB_CONNECTION`: usar `mysql` con los datos de conexión correspondientes
 - **JWT**
   - `JWT_SECRET`: se genera con `php artisan jwt:secret`
   - `JWT_TTL`: minutos de validez del token (default 60)
@@ -133,19 +133,29 @@ php artisan jwt:secret
 
 4) Base de datos y migraciones:
 
-- Si usas SQLite (por defecto en `.env.example`):
+Asegúrate de tener una base de datos MySQL creada y configuradas las variables `DB_*` en `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=auth_service
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Luego corre las migraciones junto con el seeder:
 
 ```bash
-php -r "if (!file_exists('database/database.sqlite')) { touch('database/database.sqlite'); }"
-php artisan migrate
+php artisan migrate --seed
 ```
 
-Alternativa PowerShell:
+Esto creará las tablas y el usuario de prueba:
 
-```powershell
-New-Item -ItemType File -Path "database/database.sqlite" -Force | Out-Null
-php artisan migrate
-```
+| Campo    | Valor              |
+|----------|--------------------|
+| Email    | demo@example.com   |
+| Password | secret123          |
 
 5) Levantar el servicio:
 
